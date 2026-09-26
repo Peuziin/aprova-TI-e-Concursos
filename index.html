@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="Plataforma gratuita de estudos para concursos públicos e TI.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <title>Aprova TI & Concursos</title>
+</head>
+<body>
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">☰</button>
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div>
+        <strong>Aprova TI</strong>
+        <span>& Concursos</span>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" id="installBtn" hidden>＋ Instalar</button>
+      <button class="icon-btn" id="themeBtn" aria-label="Alternar tema">◐</button>
+    </div>
+  </header>
+
+  <aside class="sidebar" id="sidebar">
+    <nav>
+      <button class="nav-item active" data-section="dashboard">⌂ <span>Início</span></button>
+      <button class="nav-item" data-section="materias">▦ <span>Matérias</span></button>
+      <button class="nav-item" data-section="questoes">✓ <span>Questões</span></button>
+      <button class="nav-item" data-section="cronograma">◷ <span>Cronograma</span></button>
+      <button class="nav-item" data-section="simulados">★ <span>Simulados</span></button>
+      <button class="nav-item" data-section="desempenho">↗ <span>Desempenho</span></button>
+      <button class="nav-item" data-section="erros">⚠ <span>Caderno de erros</span></button>
+    </nav>
+    <div class="sidebar-footer">
+      <small>Versão 1.0</small>
+      <span>Dados salvos neste dispositivo</span>
+    </div>
+  </aside>
+
+  <main id="app">
+    <section id="dashboard" class="section active">
+      <div class="hero">
+        <div>
+          <span class="eyebrow">SEU PREPARATÓRIO</span>
+          <h1>Estude hoje.<br><span>Aprove amanhã.</span></h1>
+          <p>Organize sua preparação para concursos públicos e use TI como sua área de especialização.</p>
+          <button class="primary" onclick="goTo('questoes')">Começar questões →</button>
+        </div>
+        <div class="hero-badge">🎯<strong>6 meses</strong><small>plano de preparação</small></div>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card"><span>Questões feitas</span><strong id="statQuestions">0</strong><small>nesta plataforma</small></article>
+        <article class="stat-card"><span>Acertos</span><strong id="statAccuracy">0%</strong><small>aproveitamento</small></article>
+        <article class="stat-card"><span>Horas estudadas</span><strong id="statHours">0h</strong><small>registradas</small></article>
+        <article class="stat-card"><span>Dias de estudo</span><strong id="statDays">0</strong><small>dias ativos</small></article>
+      </div>
+
+      <div class="two-col">
+        <article class="panel">
+          <div class="panel-title"><div><span class="eyebrow">CONTINUE</span><h2>Plano de hoje</h2></div><button class="text-btn" onclick="goTo('cronograma')">Ver plano</button></div>
+          <div class="study-item">
+            <div class="subject-icon">PT</div>
+            <div class="study-info"><strong>Português</strong><span>Interpretação de texto · 40 min</span></div>
+            <button class="small-btn" onclick="startStudy('Português')">Estudar</button>
+          </div>
+          <div class="study-item">
+            <div class="subject-icon blue">TI</div>
+            <div class="study-info"><strong>Redes de Computadores</strong><span>Modelo OSI · 50 min</span></div>
+            <button class="small-btn" onclick="startStudy('Redes de Computadores')">Estudar</button>
+          </div>
+          <div class="study-item">
+            <div class="subject-icon green">RL</div>
+            <div class="study-info"><strong>Raciocínio Lógico</strong><span>Proposições · 30 min</span></div>
+            <button class="small-btn" onclick="startStudy('Raciocínio Lógico')">Estudar</button>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-title"><div><span class="eyebrow">PROGRESSO</span><h2>Suas matérias</h2></div><button class="text-btn" onclick="goTo('desempenho')">Detalhes</button></div>
+          <div id="progressList"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="materias" class="section">
+      <div class="page-head"><div><span class="eyebrow">CONTEÚDO</span><h1>Matérias</h1><p>Base geral + especialização em Tecnologia da Informação.</p></div></div>
+      <div class="filter-row">
+        <button class="filter active" data-filter="all">Todas</button><button class="filter" data-filter="base">Base</button><button class="filter" data-filter="ti">TI</button>
+      </div>
+      <div class="subject-grid" id="subjectGrid"></div>
+    </section>
+
+    <section id="questoes" class="section">
+      <div class="page-head"><div><span class="eyebrow">PRÁTICA</span><h1>Questões</h1><p>Responda e acompanhe seu desempenho.</p></div></div>
+      <div class="question-box" id="questionBox"></div>
+    </section>
+
+    <section id="cronograma" class="section">
+      <div class="page-head"><div><span class="eyebrow">ORGANIZAÇÃO</span><h1>Cronograma de 6 meses</h1><p>Uma trilha geral para concursos com foco em TI.</p></div></div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <section id="simulados" class="section">
+      <div class="page-head"><div><span class="eyebrow">DESAFIO</span><h1>Simulados</h1><p>Treine com provas rápidas e acompanhe seu resultado.</p></div></div>
+      <div class="sim-grid">
+        <article class="sim-card"><span>⚡</span><h2>Simulado rápido</h2><p>10 questões variadas.</p><button class="primary" onclick="startQuiz(10)">Começar</button></article>
+        <article class="sim-card"><span>🎯</span><h2>Simulado completo</h2><p>20 questões de base + TI.</p><button class="primary" onclick="startQuiz(20)">Começar</button></article>
+        <article class="sim-card"><span>💻</span><h2>Especialista TI</h2><p>10 questões focadas em tecnologia.</p><button class="primary" onclick="startQuiz(10, 'ti')">Começar</button></article>
+      </div>
+    </section>
+
+    <section id="desempenho" class="section">
+      <div class="page-head"><div><span class="eyebrow">ANÁLISE</span><h1>Desempenho</h1><p>Veja onde você está evoluindo e onde precisa revisar.</p></div></div>
+      <div class="stats-grid">
+        <article class="stat-card"><span>Total de questões</span><strong id="perfQuestions">0</strong></article>
+        <article class="stat-card"><span>Acertos</span><strong id="perfCorrect">0</strong></article>
+        <article class="stat-card"><span>Erros</span><strong id="perfWrong">0</strong></article>
+        <article class="stat-card"><span>Aproveitamento</span><strong id="perfAccuracy">0%</strong></article>
+      </div>
+      <article class="panel"><div class="panel-title"><div><span class="eyebrow">POR MATÉRIA</span><h2>Desempenho</h2></div></div><div id="performanceList"></div></article>
+    </section>
+
+    <section id="erros" class="section">
+      <div class="page-head"><div><span class="eyebrow">REVISÃO</span><h1>Caderno de erros</h1><p>As questões que você errou ficam aqui para revisão.</p></div></div>
+      <div id="errorsList"></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
